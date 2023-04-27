@@ -3,6 +3,7 @@ package com.rhmanager.www.conversor;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.rhmanager.www.controller.usuario.request.UsuarioRequest;
@@ -15,12 +16,12 @@ public class UsuarioConversor {
 	
 	public Usuario UsuarioBuild(UsuarioRequest usuarioRequest){
 		
-		return Usuario.builder().username(usuarioRequest.getUsername()).password(usuarioRequest.getPassword()).build();
+		return Usuario.builder().username(usuarioRequest.getUsername()).password(new BCryptPasswordEncoder().encode(usuarioRequest.getPassword())).build();
 	}
 	
 	public UsuarioResponse UsuarioReponseBuild(Usuario usuario){
 		
-		return UsuarioResponse.builder().id(usuario.getId()).username(usuario.getUsername()).password(usuario.getPassword()).build();
+		return UsuarioResponse.builder().id(usuario.getId()).username(usuario.getUsername()).build();
 	}
 	
 	public List<UsuarioResponse> UsuarioReponseBuild(List<Usuario> usuarios){

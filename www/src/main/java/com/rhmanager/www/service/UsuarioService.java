@@ -35,4 +35,9 @@ public class UsuarioService {
 	public List<UsuarioResponse> listar() {
 		return usuarioConversor.UsuarioReponseBuild(usuarioRepository.findAll());
 	}
+
+	public void deletar(Long id) {
+
+		usuarioRepository.deleteById(id);
+	}
 }
