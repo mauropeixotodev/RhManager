@@ -52,7 +52,12 @@ public class UsuarioController {
 	}
 
 	@PutMapping("/{id}")
-	public void modificar(@RequestBody @Validated UsuarioRequest UsuarioRequest) {
+	public ResponseEntity<UsuarioResponse> modificar(@PathVariable Long id, @RequestBody @Validated UsuarioRequest UsuarioRequest) throws Exception {
+		try {
+			return ResponseEntity.ok(usuarioService.atualizar(id, UsuarioRequest));
+		} catch (Exception e) {
+			throw new Exception("Erro ao atualizar usuário: " + e);
+		}
 		
 	}
 	@DeleteMapping("/{id}")
