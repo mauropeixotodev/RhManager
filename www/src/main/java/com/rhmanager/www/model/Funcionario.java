@@ -63,7 +63,6 @@ public class Funcionario implements UserDetails {
 	@Column(nullable = false)
 	private boolean ativo;
 	
-	private List<String> perfil;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

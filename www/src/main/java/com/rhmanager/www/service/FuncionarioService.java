@@ -3,7 +3,10 @@ package com.rhmanager.www.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.rhmanager.www.controller.funcionario.request.FuncionarioRequest;
@@ -37,53 +40,65 @@ public class FuncionarioService {
 	public List<FuncionarioResponse> listar() {
 		return funcionarioConversor.funcionarioResponseBuild(funcionarioRepository.findAll());
 	}
+    @Transactional
+	public FuncionarioResponse atualizar(Long id, FuncionarioRequest funcionarioRequest) {
+		Optional<Funcionario> funcionarioOpitional = funcionarioRepository.findById(id);
+		if (funcionarioOpitional.isPresent()) {
+			Funcionario funcionario = funcionarioOpitional.get();
+			if (funcionarioRequest.getNome() != null) {
+				funcionario.setNome(funcionarioRequest.getNome());
+			}
+			if (funcionarioRequest.getSobrenome() != null) {
+				funcionario.setSobrenome(funcionarioRequest.getSobrenome());
+			}
+			if (funcionarioRequest.getNomeCompleto() != null) {
+				funcionario.setNomeCompleto(funcionarioRequest.getNomeCompleto());
+			}
+			if (funcionarioRequest.getCpf() != null) {
+				funcionario.setCpf(funcionarioRequest.getCpf());
+			}
+			if (funcionarioRequest.getNomeDaMae() != null) {
+				funcionario.setNomeDaMae(funcionarioRequest.getNomeDaMae());
+			}
+			if (funcionarioRequest.getNomeDoPai() != null) {
+				funcionario.setNomeDoPai(funcionarioRequest.getNomeDoPai());
+			}
+			if (funcionarioRequest.getRg() != null) {
+				funcionario.setRg(funcionarioRequest.getRg());
+			}
+			if (funcionarioRequest.getOrgaoEmissor() != null) {
+				funcionario.setOrgaoEmissor(funcionarioRequest.getOrgaoEmissor());
+			}
+			if (funcionarioRequest.getIdade() != 0) {
+				funcionario.setIdade(funcionarioRequest.getIdade());
+			}
+			if (funcionarioRequest.getTipoDeContrato() != null) {
+				funcionario.setTipoDeContrato(funcionarioRequest.getTipoDeContrato());
+			}
+			if (funcionarioRequest.getSalario() != null) {
+				funcionario.setSalario(funcionarioRequest.getSalario());
+			}
+			if (funcionarioRequest.getUsername() != null) {
+				funcionario.setUsername(funcionarioRequest.getUsername());
+			}
+			if (funcionarioRequest.getPassword() != null) {
+				funcionario.setPassword(new BCryptPasswordEncoder().encode(funcionarioRequest.getPassword()));
+			}
+			return funcionarioConversor.funcionarioResponseBuild(funcionario);
+		}
+		throw new Error("Funcionário não encontrado");
 
-//public FuncionarioResponse atualizar(Long id, FuncionarioRequest funcionarioRequest) {
-//		Optional<Funcionario> funcionarioOpitional = funcionarioRepository.findById(id);
-//		if (funcionarioOpitional.isPresent()) {
-//			Funcionario funcionario = funcionarioOpitional.get();
-//			if (funcionarioRequest.getNome() != null) {
-//				funcionario.setCpf(funcionarioRequest.getNome());
-//			}
-//			;
-//			if (funcionarioRequest.getNome() != null) {
-//				funcionario.setCpf(funcionarioRequest.getNome());
-//			}
-//			;
-//			if (funcionarioRequest. != null) {
-//				funcionario.setCpf(funcionarioRequest.getNome());
-//			}
-//			;
-//			if (funcionarioRequest.getNome() != null) {
-//				funcionario.setCpf(funcionarioRequest.getNome());
-//			}
-//			;
-//			if (funcionarioRequest.getNome() != null) {
-//				funcionario.setCpf(funcionarioRequest.getNome());
-//			}
-//			;
-//			if (funcionarioRequest.getNome() != null) {
-//				funcionario.setCpf(funcionarioRequest.getNome());
-//			}
-//			;
-//			if (funcionarioRequest.getNome() != null) {
-//				funcionario.setCpf(funcionarioRequest.getNome());
-//			}
-//			;
-//			if (funcionarioRequest.getNome() != null) {
-//				funcionario.setCpf(funcionarioRequest.getNome());
-//			}
-//			;
-//			if (funcionarioRequest.getNome() != null) {
-//				funcionario.setCpf(funcionarioRequest.getNome());
-//			}
-//			;
-//			if (funcionarioRequest.getNome() != null) {
-//				funcionario.setCpf(funcionarioRequest.getNome());
-//			}
-//			;
-//		}
-//
-//		return null;
-//	}
+	}
+
+	public void deletar(Long id) {
+
+		Optional<Funcionario> funcionarioOpitional = funcionarioRepository.findById(id);
+		if (funcionarioOpitional.isPresent()) {
+			funcionarioRepository.deleteById(id);
+		} else {
+			throw new Error("Funcionário não encontrado");
+		}
+
+	}
+
 }

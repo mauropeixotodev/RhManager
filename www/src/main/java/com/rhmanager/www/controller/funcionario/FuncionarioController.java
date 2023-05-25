@@ -52,26 +52,26 @@ public class FuncionarioController {
 		}
 	}
 
-//	@PutMapping("/{id}")
-//	public ResponseEntity<FuncionarioResponse> modificar(@PathVariable Long id,
-//			@RequestBody @Validated FuncionarioRequest funcionarioRequest) throws Exception {
-//		try {
-//			return ResponseEntity.ok(funcionarioService.atualizar(id, funcionarioRequest));
-//		} catch (Exception e) {
-//			throw new Exception("Erro ao atualizar usuário: " + e);
-//		}
-//
-//	}
-//
-//	@DeleteMapping("/{id}")
-//	public ResponseEntity<?> deletar(@PathVariable Long id) throws Exception {
-//		try {
-//			funcionarioService.deletar(id);
-//			return ResponseEntity.ok().build();
-//		} catch (Exception e) {
-//			throw new Exception("Erro ao deletar usuário: " + e);
-////		}
-//
-//	}
+	@PutMapping("/{id}")
+	public ResponseEntity<FuncionarioResponse> modificar(@PathVariable Long id,
+			@RequestBody @Validated FuncionarioRequest funcionarioRequest) throws Exception {
+		try {
+			return ResponseEntity.ok(funcionarioService.atualizar(id, funcionarioRequest));
+		} catch (Exception e) {
+			throw new Exception("Erro ao atualizar usuário: " + e);
+		}
+
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deletar(@PathVariable Long id) throws Exception {
+		try {
+			funcionarioService.deletar(id);
+			return ResponseEntity.ok().build();
+		} catch (Exception e) {
+			throw new Exception("Erro ao deletar usuário: " + e);
+		}
+
+	}
 
 }
