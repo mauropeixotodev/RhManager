@@ -12,14 +12,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.rhmanager.www.model.Usuario;
-import com.rhmanager.www.repository.UsuarioRepository;
+import com.rhmanager.www.model.Funcionario;
+import com.rhmanager.www.repository.FuncionarioRepository;
 
 public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 	private TokenService tokenService;
-	private UsuarioRepository repository;
+	private FuncionarioRepository repository;
 
-	public AutenticacaoViaTokenFilter(TokenService tokenService, UsuarioRepository repository) {
+	public AutenticacaoViaTokenFilter(TokenService tokenService, FuncionarioRepository repository) {
 		this.tokenService = tokenService;
 		this.repository = repository;
 	}
@@ -38,8 +38,8 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 	}
 
 	private void autenticarCliente(String token) {
-		Long idUsuario = tokenService.getIdUsuario(token);
-		Optional<Usuario> optionalUsuario = repository.findById(idUsuario);
+		Long idUsuario = tokenService.getIdFuncionario(token);
+		Optional<Funcionario> optionalUsuario = repository.findById(idUsuario);
 		if(optionalUsuario.isPresent()) {
 			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(optionalUsuario.get(), null, null);
 			SecurityContextHolder.getContext().setAuthentication(authentication);

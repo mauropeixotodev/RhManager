@@ -8,7 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.rhmanager.www.configure.jwt.TokenTriangulador;
-import com.rhmanager.www.model.Usuario;
+import com.rhmanager.www.model.Funcionario;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -24,7 +24,7 @@ public class TokenService {
 	private String secret;
 
 	public TokenTriangulador gerarToken(Authentication authentication) {
-		Usuario logado = (Usuario) authentication.getPrincipal();
+		Funcionario logado = (Funcionario) authentication.getPrincipal();
 		Date hoje = new Date();
 		Date dataExpiracao = new Date(hoje.getTime() + Long.parseLong(expiration));
 		   
@@ -52,7 +52,7 @@ public class TokenService {
 		}
 	}
 
-	public Long getIdUsuario(String token) {
+	public Long getIdFuncionario(String token) {
 		Claims claims = Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token).getBody();
 		return Long.parseLong(claims.getSubject());
 	}

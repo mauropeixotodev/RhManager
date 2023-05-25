@@ -1,4 +1,4 @@
-package com.rhmanager.www.controller.usuario;
+package com.rhmanager.www.controller.funcionario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rhmanager.www.configure.jwt.TokenResponse;
 import com.rhmanager.www.configure.jwt.TokenTriangulador;
-import com.rhmanager.www.controller.usuario.request.UsuarioRequest;
+import com.rhmanager.www.controller.funcionario.request.FuncionarioRequest;
 import com.rhmanager.www.security.TokenService;
 
 @RestController
@@ -28,9 +28,9 @@ public class AuthController {
 	private TokenService tokenService;
 
 	@PostMapping
-	public ResponseEntity<TokenResponse> autenticar(@RequestBody @Validated UsuarioRequest UsuarioRequest)
+	public ResponseEntity<TokenResponse> autenticar(@RequestBody @Validated FuncionarioRequest funcionarioRequest)
 			throws Exception {
-		UsernamePasswordAuthenticationToken dadosLogin = UsuarioRequest.converter();
+		UsernamePasswordAuthenticationToken dadosLogin = funcionarioRequest.converter();
 
 		try {
 			Authentication authentication = authManager.authenticate(dadosLogin);

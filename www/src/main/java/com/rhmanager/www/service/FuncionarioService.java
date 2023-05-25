@@ -1,6 +1,7 @@
 package com.rhmanager.www.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.rhmanager.www.controller.funcionario.request.FuncionarioRequest;
 import com.rhmanager.www.controller.funcionario.response.FuncionarioResponse;
 import com.rhmanager.www.conversor.FuncionarioConversor;
+import com.rhmanager.www.model.Funcionario;
 import com.rhmanager.www.repository.FuncionarioRepository;
 
 @Service
@@ -33,5 +35,55 @@ public class FuncionarioService {
 	}
 
 	public List<FuncionarioResponse> listar() {
-	return funcionarioConversor.funcionarioResponseBuild(funcionarioRepository.findAll());}
+		return funcionarioConversor.funcionarioResponseBuild(funcionarioRepository.findAll());
+	}
+
+//public FuncionarioResponse atualizar(Long id, FuncionarioRequest funcionarioRequest) {
+//		Optional<Funcionario> funcionarioOpitional = funcionarioRepository.findById(id);
+//		if (funcionarioOpitional.isPresent()) {
+//			Funcionario funcionario = funcionarioOpitional.get();
+//			if (funcionarioRequest.getNome() != null) {
+//				funcionario.setCpf(funcionarioRequest.getNome());
+//			}
+//			;
+//			if (funcionarioRequest.getNome() != null) {
+//				funcionario.setCpf(funcionarioRequest.getNome());
+//			}
+//			;
+//			if (funcionarioRequest. != null) {
+//				funcionario.setCpf(funcionarioRequest.getNome());
+//			}
+//			;
+//			if (funcionarioRequest.getNome() != null) {
+//				funcionario.setCpf(funcionarioRequest.getNome());
+//			}
+//			;
+//			if (funcionarioRequest.getNome() != null) {
+//				funcionario.setCpf(funcionarioRequest.getNome());
+//			}
+//			;
+//			if (funcionarioRequest.getNome() != null) {
+//				funcionario.setCpf(funcionarioRequest.getNome());
+//			}
+//			;
+//			if (funcionarioRequest.getNome() != null) {
+//				funcionario.setCpf(funcionarioRequest.getNome());
+//			}
+//			;
+//			if (funcionarioRequest.getNome() != null) {
+//				funcionario.setCpf(funcionarioRequest.getNome());
+//			}
+//			;
+//			if (funcionarioRequest.getNome() != null) {
+//				funcionario.setCpf(funcionarioRequest.getNome());
+//			}
+//			;
+//			if (funcionarioRequest.getNome() != null) {
+//				funcionario.setCpf(funcionarioRequest.getNome());
+//			}
+//			;
+//		}
+//
+//		return null;
+//	}
 }

@@ -39,7 +39,7 @@ public class Departamento {
 	@ManyToOne
 	@JoinColumn(name = "gestor_id", referencedColumnName = "id")
 	private Funcionario gestor;
-	@OneToMany(mappedBy = "cargo")
+	@OneToMany(mappedBy = "departamento")
 	private List<Funcionario> funcionarios;
 
 }

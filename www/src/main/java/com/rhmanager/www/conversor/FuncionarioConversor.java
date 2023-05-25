@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.rhmanager.www.controller.cargo.response.CargoResponse;
@@ -25,13 +26,16 @@ public class FuncionarioConversor {
 	private CargoRepository cargoRepository;
 
 	public Funcionario funcionarioBuild(FuncionarioRequest funcionario) {
+		System.out.println("Aqui brou" + new BCryptPasswordEncoder().encode(funcionario.getPassword()));
 		return Funcionario.builder().nomeCompleto(funcionario.getNomeCompleto()).nome(funcionario.getNome())
 				.sobrenome(funcionario.getSobrenome()).cpf(funcionario.getCpf()).rg(funcionario.getRg())
 				.orgaoEmissor(funcionario.getOrgaoEmissor()).idade(funcionario.getIdade()).ativo(funcionario.isAtivo())
 				.nomeDaMae(funcionario.getNomeDaMae()).nomeDoPai(funcionario.getNomeDoPai())
-				.cargo(cargoRepository.findById(funcionario.getCargo()).get()).salario(funcionario.getSalario())
+				.salario(funcionario.getSalario())
 				.tipoDeContrato(funcionario.getTipoDeContrato())
-				.departamento(departamentoRepository.findById(funcionario.getDepartamento()).get()).build();
+				.username(funcionario.getUsername())
+				.password(new BCryptPasswordEncoder().encode(funcionario.getPassword())).build();
+			     
 	}
 
 	public FuncionarioResponse funcionarioResponseBuild(Funcionario funcionario) {
@@ -39,9 +43,9 @@ public class FuncionarioConversor {
 				.nome(funcionario.getNome()).sobrenome(funcionario.getSobrenome()).cpf(funcionario.getCpf())
 				.rg(funcionario.getRg()).orgaoEmissor(funcionario.getOrgaoEmissor()).idade(funcionario.getIdade())
 				.ativo(funcionario.isAtivo()).nomeDaMae(funcionario.getNomeDaMae())
-				.nomeDoPai(funcionario.getNomeDoPai()).cargo(cargoBuildResponse(funcionario.getCargo()))
+				.nomeDoPai(funcionario.getNomeDoPai())
 				.salario(funcionario.getSalario()).tipoDeContrato(funcionario.getTipoDeContrato())
-				.departamento(departamentoResponseBuild(funcionario.getDepartamento())).build();
+				.build();
 	}
 
 	public List<FuncionarioResponse> funcionarioResponseBuild(List<Funcionario> funcionarios) {

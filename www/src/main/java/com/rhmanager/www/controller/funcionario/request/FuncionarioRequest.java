@@ -1,6 +1,6 @@
 package com.rhmanager.www.controller.funcionario.request;
 
-
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +25,7 @@ public class FuncionarioRequest {
 	private String rg;
 	@NonNull
 	private String orgaoEmissor;
-	
+
 	private int idade;
 	@NonNull
 	private String tipoDeContrato;
@@ -33,8 +33,16 @@ public class FuncionarioRequest {
 	private Double salario;
 
 	private Long cargo;
-	
+
 	private Long departamento;
-	
+
 	private boolean ativo;
+	@NonNull
+	private String username;
+	@NonNull
+	private String password;
+
+	public UsernamePasswordAuthenticationToken converter() {
+		return new UsernamePasswordAuthenticationToken(this.username, this.password);
+	}
 }

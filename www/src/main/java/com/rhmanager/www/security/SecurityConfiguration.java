@@ -1,7 +1,7 @@
 package com.rhmanager.www.security;
 
 
-import com.rhmanager.www.repository.UsuarioRepository;
+import com.rhmanager.www.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +27,7 @@ public class SecurityConfiguration {
 	private TokenService tokenService;
 
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private FuncionarioRepository usuarioRepository;
 	
 	  
 	  @Bean
@@ -50,7 +50,8 @@ public class SecurityConfiguration {
 	                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 	                .and()
 	                .authorizeRequests((authorize) -> authorize
-	                        .antMatchers("/user").permitAll()
+	                		.antMatchers("/h2-console/**").permitAll()
+	                        .antMatchers("/usuario").permitAll()
 	                        .antMatchers("/auth").permitAll()
 	                        .anyRequest()
 	                        .authenticated()
